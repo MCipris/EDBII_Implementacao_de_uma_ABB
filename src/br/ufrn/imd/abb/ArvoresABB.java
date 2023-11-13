@@ -219,5 +219,17 @@ private int calcAltura(No no) {
     return no.altura;
 }
 
+public int posicao(No raiz, int elemento, int nosCortados) {
+	int posicao = 0;
+	if (elemento < raiz.valor) {
+		posicao = posicao(raiz.left, elemento, nosCortados);
+	} else if (elemento == raiz.valor) {
+		return (raiz.qntNosEsq + 1)+nosCortados;
+	} else {
+		posicao = posicao(raiz.right, elemento, ( 1 + raiz.qntNosEsq ));
+	}
+	
+	return posicao;
+}
 
 }
