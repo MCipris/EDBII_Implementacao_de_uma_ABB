@@ -2,8 +2,6 @@ package br.ufrn.imd.abb;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import br.ufrn.imd.abb.ArvoresABB;
-import br.ufrn.imd.abb.No;
 
 public class Main {
 	public static void main(String[] args) throws FileNotFoundException {

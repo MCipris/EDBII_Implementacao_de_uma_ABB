@@ -306,7 +306,7 @@ public int posicao(No raiz, int elemento, int nosCortados) {
 	} else {
 		posicao = posicao(raiz.right, elemento, ( 1 + raiz.qntNosEsq ));
 	}
-	
+	 
 	return posicao;
 }
 
