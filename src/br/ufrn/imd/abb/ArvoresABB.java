@@ -4,19 +4,8 @@ import java.util.Stack;
 public class ArvoresABB {
 
 No raiz;
-int qntNos = 0;
+int qntNos;
 
-public void iniciar() {
-	raiz.left = new No(10);
-	
-	raiz.right = new No(45);
-	
-	raiz.left.right = new No(15); //filhode 10
-	raiz.right.left = new No(40); //filhode 45
-	raiz.right.right = new No(50); //filhode 45
-	
-
-}
 
 public ArvoresABB() {
     raiz = null;
@@ -53,6 +42,23 @@ public void simetrica(No no) {
 	
 }
 
+public int somaSimetrica(No no, int valor) {
+	if(no.left != null) {
+		valor = somaSimetrica(no.left, valor);
+	
+	}
+	
+	valor += no.valor;
+	
+	if (no.right != null) {
+		valor = somaSimetrica(no.right, valor);
+		
+	}
+	
+	return valor;
+}
+
+
 public void posOrdem(No no) {
 	if(no.left != null) {
 		posOrdem(no.left);
@@ -67,6 +73,7 @@ public void posOrdem(No no) {
 	System.out.print(no.valor + " ");
 
 }
+
 
 public void preOrdemIterativa(No no) {
 	Stack <No> pilha = new Stack<>();
@@ -119,10 +126,14 @@ public void posOrdemIterativa(No No) {
 /////////////////////
 
 public void inserir(int valor) { //Apenas realiza a inserção se não encontrou o elemento; 
+	
 	if (busca(raiz, valor) == null) {
 		raiz = privateInserir(raiz, valor); 
 		qntNos++;
 	}
+//	if (qntNos == 1) {
+//		raiz = 
+//	}
 }
 
 private No privateInserir(No raiz, int valor) {
@@ -219,6 +230,73 @@ private int calcAltura(No no) {
     return no.altura;
 }
 
+public boolean ehCompleta() {
+	if (raiz == null) {return true;}
+    int altura = raiz.altura;
+    
+    int minqntNos = (int) Math.pow(2, (altura - 1)); // (2^h-1)    min
+    int maxqntNos = (int) Math.pow(2, altura) - 1; // (2^h) - 1  max
+    
+    return qntNos >= minqntNos && qntNos <= maxqntNos;
+}
+
+public boolean ehCheia(No raiz) {
+    if (raiz == null) {
+        return true; 
+    }
+    if (raiz.left == null && raiz.right == null) {
+        return true;
+    }
+
+    if (raiz.left != null && raiz.left != null){
+        return ehCheia(raiz.left) && ehCheia(raiz.right);
+    }
+
+    return false;
+}
+
+public float media(int valor) {
+	No noAtual = busca(raiz, valor);
+	int somaValores = somaSimetrica(noAtual, 0);
+	int qntNosMedia = noAtual.qntNosEsq + noAtual.qntNosDir + 1;
+	float media = (float) somaValores / qntNosMedia;
+	return media;
+	
+}
+
+public No mediana() {
+	No mediana;
+	if (qntNos % 2 == 0) { // é par
+		No medianaesq = enesimoElemento(raiz, (qntNos/2));
+		No medianadir = enesimoElemento(raiz, (qntNos/2) + 1);
+		if (medianaesq.valor < medianadir.valor) {
+			return medianaesq;
+		}
+		else {
+			return medianadir;
+		}
+	} else {               // é ímpar
+		mediana = enesimoElemento(raiz, (qntNos+1)/ 2);
+	}
+	return mediana;
+}
+
+public No enesimoElemento(No raiz, int pos) {
+	No noPos;
+	if(pos > qntNos || pos < 0) {
+		return null;
+	}
+	if (pos <= raiz.qntNosEsq) {
+		noPos = enesimoElemento(raiz.left, pos);
+	} else if (pos == raiz.qntNosEsq + 1) {
+		return raiz;
+	} else {
+		noPos = enesimoElemento(raiz.right, pos - ( 1 + raiz.qntNosEsq ));
+	}
+	
+	return noPos;
+}
+
 public int posicao(No raiz, int elemento, int nosCortados) {
 	int posicao = 0;
 	if (elemento < raiz.valor) {
@@ -230,6 +308,42 @@ public int posicao(No raiz, int elemento, int nosCortados) {
 	}
 	
 	return posicao;
+}
+
+public void imprimirTracos(No raiz, int vazios, int tamTotal) {
+	if (raiz == null) {
+		return;
+	} else {
+		String imprimir = "";
+		for (int i = 0; i < vazios; i++) {
+			imprimir += " ";
+		}
+		imprimir += Integer.toString(raiz.valor);
+		int tracos = tamTotal - imprimir.length();
+		for (int i = 0; i < tracos; i++) {
+			imprimir += "-";
+		}
+		imprimir += "\n";
+		System.out.print(imprimir);
+		imprimirTracos(raiz.left, vazios+4, tamTotal);
+		imprimirTracos(raiz.right, vazios+4, tamTotal);
+	}
+}
+
+public String imprimirParenteses(No raiz) {
+	if(raiz != null) {
+		String impressao = "(";
+		impressao += raiz.valor+" ";
+		if(raiz.left != null) {
+			impressao += imprimirParenteses(raiz.left);
+		}
+		if(raiz.right != null) {
+			impressao += imprimirParenteses(raiz.right);
+		}
+		impressao+=")";
+		return impressao;
+	}
+	return "";
 }
 
 }
