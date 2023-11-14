@@ -2,8 +2,8 @@
 
 Este projeto que foi desenvolvido é uma atividade da displina de Estrutura de Dados II ministrada pelo professor Sidemar Fideles Cezario.
 
-Discentes envolvidos:
-Cipriano José Da Silva Neto
+Discentes envolvidos: <br/>
+Cipriano José Da Silva Neto <br/>
 Davi Barbosa Gibson
 
 # Como executar:
