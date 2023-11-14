@@ -11,3 +11,4 @@ Primeiramente certifique-se de estar com a JDK atualizada:
 ```
 $ sudo apt-get update
 ```
+Em seguida utilize este comando:
