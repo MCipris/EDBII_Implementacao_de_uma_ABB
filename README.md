@@ -7,3 +7,7 @@ Cipriano José Da Silva Neto <br/>
 Davi Barbosa Gibson
 
 # Como executar:
+Primeiramente certifique-se de estar com a JDK atualizada:
+```
+$ sudo apt-get update
+```
